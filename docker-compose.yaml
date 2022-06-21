@@ -1,0 +1,22 @@
+version: '3'
+services:
+  eureka-service:
+    image: habibahmedmagdy/microservice:eureka
+    ports:
+      - 8010:8010
+  zuul:
+    image: habibahmedmagdy/microservice:zuul
+    ports:
+      - 8090:8090
+    environment:
+      - "eureka.server=eureka-service"
+  patients-documents:
+    image: amrzayed/distributed-emr:patient-documents
+    environment:
+      - "eureka.server=eureka-service"
+  patients:
+    image: amrzayed/distributed-emr:patients
+    environment:
+      - "eureka.server=eureka-service"
+
+
